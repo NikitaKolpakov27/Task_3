@@ -2,12 +2,12 @@ package com.company;
 
 public class MyStrQueueLinkList<T>{
 
-    private class ListLinked {
-        public T value;
-        public ListLinked next;
-        public ListLinked prev;
+    private class Node {
+        public String value;
+        public Node next;
+        public Node prev;
 
-        public ListLinked(T value, ListLinked next, ListLinked prev) {
+        public Node(String value, Node next, Node prev) {
             this.value = value;
             this.next = next;
             this.prev = prev;
@@ -16,12 +16,12 @@ public class MyStrQueueLinkList<T>{
 
     }
 
-    protected ListLinked head = null;
-    protected ListLinked tail = null;
+    protected Node head = null;
+    protected Node tail = null;
     protected int size = 0;
 
-    public void add(T elem) {
-        ListLinked temp = new ListLinked(elem, null, tail);
+    public void add(String elem) {
+        Node temp = new Node(elem, null, tail);
         if (tail == null) {
             head = tail = temp;
         } else {
@@ -36,7 +36,7 @@ public class MyStrQueueLinkList<T>{
         if (size == 1) {
             head = tail = null;
         } else {
-            for (ListLinked curr = head; ; curr = curr.next) {
+            for (Node curr = head; ; curr = curr.next) {
                 if (curr.next.next == null) {
                     tail = curr;
                     tail.next = null;
@@ -51,33 +51,50 @@ public class MyStrQueueLinkList<T>{
         return head == null;
     }
 
-    public void reverseListQueue() {
-        ListLinked curr = head;
-        ListLinked freeVar;
-        while (curr.next != null) {
-            if (curr.next == tail) {
-                freeVar = head;
-               head = tail;
-               tail = freeVar;
-            }
+
+    String[] toArray() {
+        String[] array = new String[size];
+        Node list = head;
+
+        for (int i = 0; list != null; i++) {
+            array[i] = (String) list.value;
+            list = list.next;
+        }
+
+        return array;
+
+    }
+
+    int size() {
+        return size;
+    }
+
+    public String get(int index) throws Exception {
+        if (index < 0 || index > size - 1) {
+            throw new IndexException("Incorrect! Index is an invalid range!");
+        }
+        Node curr = head;
+        while (index != 0) {
+            index--;
             curr = curr.next;
         }
-
-        ListLinked temp = head;
-        while (temp != null) {
-            System.out.println(temp.value);
-            temp = temp.prev;
-        }
-
-
+        return curr.value;
     }
 
-    public void printQueue() {
-        ListLinked temp = head;
-
-        while (temp != null) {
-            System.out.println(temp.value);
-            temp = temp.next;
-        }
+    String getHeadValue() {
+        return head.value;
     }
+
+    String getTailValue() {
+        return tail.value;
+    }
+
+    Node getHead() {
+        return head;
+    }
+
+    Node getTail() {
+        return tail;
+    }
+
 }

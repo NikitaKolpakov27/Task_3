@@ -1,5 +1,7 @@
 package com.company;
 
+import org.junit.Assert;
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -7,17 +9,21 @@ import java.util.Queue;
 public class Main {
 
 
-    public static void main(String[] args) {
-        Queue<String> list = new LinkedList<String>();
+    public static void main(String[] args) throws Exception {
+        String[] array = {"hello", "everyone", "alex", "lion"};
 
-        list.add("hello");
-        list.add("world");
-        list.add("nice");
-        list.add("day");
+        NewQueue newQueue = new NewQueue();
 
-        Queue<String> result = TaskQueue.newQueue(list);
-        while (!(result.isEmpty())) {
-            System.out.println(result.poll());
+        for (String s : array) {
+            System.out.println(s);
+        }
+
+        System.out.println();
+
+        String[] array1 = newQueue.newArray(array);
+
+        for (String s : array1) {
+            System.out.println(s);
         }
 
         System.out.println();
@@ -27,13 +33,22 @@ public class Main {
         quelist.add("hello");
         quelist.add("Annie");
         quelist.add("what you're doing?");
-        quelist.printQueue();
+        quelist.toArray();
+        for (int i = 0; i < quelist.size; i++) {
+            System.out.println(quelist.get(i));
+        }
+
         System.out.println();
-        quelist.reverseListQueue();
+
+        for (int i = quelist.size-1; i >= 0; i--) {
+            System.out.println(quelist.get(i));
+        }
+
 
 
 
 
 
     }
+
 }
